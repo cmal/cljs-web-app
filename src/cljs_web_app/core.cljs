@@ -5,6 +5,8 @@
    [enfocus.events :as events]
    [enfocus.effects :as effects]
    [hipo.core :as hipo]
+   [garden.core :refer [css]]
+   [goog.style]
    )
   (:require-macros
    [enfocus.macros :as em])
@@ -102,27 +104,28 @@
 
 ;; ;; hipo
 
-(defn create-menu-v [items]
-  [:ul#my-menu
-   (for [x items]
-     [:li {:id x} x])])
+;; (defn create-menu-v [items]
+;;   [:ul#my-menu
+;;    (for [x items]
+;;      [:li {:id x} x])])
 
-(def menu (hipo/create (create-menu-v ["it1" "it2" "it3"])))
+;; (def menu (hipo/create (create-menu-v ["it1" "it2" "it3"])))
 
-(defn add-menu! []
-  (.appendChild js/document.body menu))
+;; (defn add-menu! []
+;;   (.appendChild js/document.body menu))
 
-(defn reconcile-new-menu! []
-  (hipo/reconciliate! menu (create-menu-v ["new it1" "new it2" "new it3"])))
+;; (defn reconcile-new-menu! []
+;;   (hipo/reconciliate! menu (create-menu-v ["new it1" "new it2" "new it3"])))
 
-(add-menu!)
-(reconcile-new-menu!)
+;; (add-menu!)
+;; (reconcile-new-menu!)
 
-(defn gen-button
-  [id caption]
-  (ef/html [:button {:id id} caption])
-  )
+;; (defn gen-button
+;;   [id caption]
+;;   (ef/html [:button {:id id} caption])
+;;   )
 
+;; enfocus
 ;; (defn say-hello! []
 ;;   (ef/at js/document
 ;;          ["#enfocus-div"] (ef/content "Hello From Enfocus!")
@@ -148,3 +151,12 @@
 ;; (say-hello!)
 ;; (activate-button!)
 ;; (activate-resize!)
+
+;; garden
+(defn modify-css! []
+  (goog.style/installStyles (css
+                             [:#garden-div {:border-style "solid"}
+                              [:&:hover {:border-style "dashed"}]
+                              [:p {:background-color "cyan"}]])))
+
+#_(modify-css!)

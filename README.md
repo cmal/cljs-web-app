@@ -1,10 +1,11 @@
 # cljs-web-app
 
-FIXME: Write a one-line description of your library/project.
+ClojureScript web apps in ebook learning clojurescript chapter 4.
 
 ## Overview
 
-FIXME: Write a paragraph about the library/project and highlight its goals.
+You can checkout each commit that have a `tested` word in commit messages,
+to run every working version of this project.
 
 ## Setup
 
@@ -34,6 +35,6 @@ get live reloading, nor a REPL.
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2016 Yu Zhao 赵宇
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
