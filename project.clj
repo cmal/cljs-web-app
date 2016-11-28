@@ -9,6 +9,8 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.229"]
                  [jayq "2.5.4"]
+                 [domina "1.0.3"]
+                 [prismatic/dommy "1.1.0"]
                  [org.clojure/core.async "0.2.391"
                   :exclusions [org.clojure/tools.reader]]]
 
