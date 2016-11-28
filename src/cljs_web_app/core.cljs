@@ -1,6 +1,12 @@
 (ns cljs-web-app.core
-  (:require [hipo.core :as hipo]
-            )
+  (:require
+   [hipo.core :as hipo]
+   [enfocus.core :as ef]
+   [enfocus.events :as events]
+   [enfocus.effects :as effects]
+   )
+  (:require-macros
+   [enfocus.macros :as em])
   )
 
 ;; (enable-console-print!)
@@ -93,20 +99,51 @@
 
 
 
-;; hipo
+;; ;; hipo
 
-(defn create-menu-v [items]
-  [:ul#my-menu
-   (for [x items]
-     [(:li {:id x}) x])])
+;; (defn create-menu-v [items]
+;;   [:ul#my-menu
+;;    (for [x items]
+;;      [(:li {:id x}) x])])
 
-(def menu (hipo/create (create-menu-v ["it1" "it2" "it3"])))
+;; (def menu (hipo/create (create-menu-v ["it1" "it2" "it3"])))
 
-(defn add-menu! []
-  (.appendChild js/document.body menu))
+;; (defn add-menu! []
+;;   (.appendChild js/document.body menu))
 
-(defn reconcile-new-menu! []
-  (hipo/reconciliate! menu (create-menu-v ["new it1" "new it2" "new it3"])))
+;; (defn reconcile-new-menu! []
+;;   (hipo/reconciliate! menu (create-menu-v ["new it1" "new it2" "new it3"])))
 
-#_(add-menu!)
-#_(reconcile-new-menu!)
+;; #_(add-menu!)
+;; #_(reconcile-new-menu!)
+
+(defn gen-button
+  [id caption]
+  (ef/html [:button {:id id} caption])
+  )
+
+(defn say-hello! []
+  (ef/at js/document
+         ["#enfocus-div"] (ef/content "Hello From Enfocus!")
+         ["body"] (ef/append (gen-button "btn1" "Click me!"))
+         ["body"] (ef/append (gen-button "btn2" "Resize the div!"))
+         ))
+
+(em/defaction activate-button! []
+  ["#btn1"] (events/listen :click #(js/alert "I am Clicked!"))
+  )
+
+(em/defaction resize-div! [param]
+  ["#enfocus-div"] (effects/chain
+                   (effects/resize param :curheight 500)
+                   (effects/resize :curwidth (* 2 param) 500)
+                   )
+  )
+
+(em/defaction activate-resize! []
+  ["#btn2"] (events/listen :click #(resize-div! 200))
+  )
+
+(say-hello!)
+(activate-button!)
+(activate-resize!)
